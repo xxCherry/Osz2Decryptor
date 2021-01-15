@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osz2Decryptor", "Osz2Decryptor\Osz2Decryptor.csproj", "{8A6DC0B8-ACF3-4788-9976-FB94A3113E54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osz2DecryptorTest", "Osz2DecryptorTest\Osz2DecryptorTest.csproj", "{5C377C52-9637-4380-8305-E4F2BC251AF5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A6DC0B8-ACF3-4788-9976-FB94A3113E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A6DC0B8-ACF3-4788-9976-FB94A3113E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A6DC0B8-ACF3-4788-9976-FB94A3113E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6DC0B8-ACF3-4788-9976-FB94A3113E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C377C52-9637-4380-8305-E4F2BC251AF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C377C52-9637-4380-8305-E4F2BC251AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C377C52-9637-4380-8305-E4F2BC251AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C377C52-9637-4380-8305-E4F2BC251AF5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
