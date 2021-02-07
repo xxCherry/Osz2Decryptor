@@ -6,3 +6,6 @@
 
 # Missing
 * Some security checks
+
+# Special thanks
+[JPK314](https://github.com/JPK314) for file reader fix.
