@@ -9,19 +9,27 @@ namespace Osz2DecryptorTest
     {
         static void Main(string[] args)
         {
-            var path = "../../../osz2/864877.osz2";
+            string path;
+
+            if (args.Length < 1)
+                path = "..\\..\\..\\osz2\\864877.osz2";
+            else
+                path = args[0];
+
+            Console.WriteLine($"Decrypting {path}");
+
             var osz2 = new Osz2Package(path);
-            foreach (var file in osz2.Files)
+            Console.WriteLine("Package read. Unpacked files:");
+
+            var dest = $"{path}-unpacked\\";
+            Directory.CreateDirectory(dest);
+
+            foreach (var osuFile in osz2.Files.ToArray())
             {
-                Console.WriteLine(file);
+                Console.WriteLine(osuFile.Key);
+                File.WriteAllBytes($"{dest}{osuFile.Key}", osuFile.Value);
             }
 
-            Console.WriteLine(osz2.Files.Count);
-
-            var osuFile = osz2.Files.ToArray()[12];
-            
-            File.WriteAllBytes($"../../../osz2/{osuFile.Key}-unpacked", osuFile.Value);
-            
             Console.ReadKey();
         }
     }
