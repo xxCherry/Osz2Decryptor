@@ -9,9 +9,16 @@ namespace Osz2DecryptorTest
     {
         static void Main(string[] args)
         {
-            var path = "../../../osz2/nekodex - welcome to christmas!.osz2";
+            var path = "../../../osz2/864877.osz2";
             var osz2 = new Osz2Package(path);
-            var osuFile = osz2.Files.ToArray()[0];
+            foreach (var file in osz2.Files)
+            {
+                Console.WriteLine(file);
+            }
+
+            Console.WriteLine(osz2.Files.Count);
+
+            var osuFile = osz2.Files.ToArray()[12];
             
             File.WriteAllBytes($"../../../osz2/{osuFile.Key}-unpacked", osuFile.Value);
             
