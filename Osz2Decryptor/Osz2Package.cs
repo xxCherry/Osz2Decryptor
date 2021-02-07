@@ -26,11 +26,6 @@ namespace Osz2Decryptor
         public Dictionary<string, byte[]> Files = new ();
 
         /// <summary>
-        /// The initialization vector for AES encryption
-        /// </summary>
-        private byte[] _iv;
-
-        /// <summary>
         /// The MD5 hash of 'Metadata' section 
         /// </summary>
         private byte[] _metaDataHash;
@@ -96,10 +91,11 @@ namespace Osz2Decryptor
                 identifier[2] != 0x4F)   // magic number #3
                 throw new("File is not valid .osz2 package");
             
-            // Unused, always zero
-            var version = reader.ReadByte();
+            // Unused. Version, always zero
+            reader.ReadByte();
             
-            _iv = reader.ReadBytes(16);
+            // Unused. IV
+            reader.ReadBytes(16); 
 
             // Read hashes of .osu parts
             _metaDataHash = reader.ReadBytes(16);
@@ -187,10 +183,6 @@ namespace Osz2Decryptor
 
             // File start offset
             var fileOffset = (int) reader.BaseStream.Position;
-
-            // Decode IV? not sure
-            for (var i = 0; i < _iv.Length; i++)
-                _iv[i] ^= _fullBodyHash[i % 16];
             
             using (var ms = new MemoryStream(fileInfo))
             {
