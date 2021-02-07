@@ -21,7 +21,7 @@ namespace Osz2Decryptor
         public Dictionary<string, FileInfo> FileInfos = new ();
         
         /// <summary>
-        /// A dictionary that contains .osu file contents
+        /// A dictionary that contains osz2 file contents
         /// </summary>
         public Dictionary<string, byte[]> Files = new ();
 
@@ -222,10 +222,10 @@ namespace Osz2Decryptor
 
                             var nextOffset = 0;
 
-                            if (i++ < count)
+                            if (i + 1 < count)
                                 nextOffset = fileReader.ReadInt32();
                             else
-                                nextOffset = (int) fileReader.BaseStream.Length - fileOffset;
+                                nextOffset = (int) reader.BaseStream.Length - fileOffset;
 
                             var fileLength = nextOffset - currentOffset;
 
@@ -241,7 +241,14 @@ namespace Osz2Decryptor
                         using var osz2Stream = new Osz2Stream(reader.BaseStream, fileOffset + value.Offset, _key);
                         using var osz2Reader = new BinaryReader(osz2Stream);
 
-                        Files.Add(key, osz2Reader.ReadBytes(value.Size));
+                        try
+                        {
+                            Files.Add(key, osz2Reader.ReadBytes(value.Size - 4));
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Failed to read: " + key);
+                        }
                     }
                 }
             }
