@@ -51,7 +51,7 @@ namespace Osz2Decryptor
         public Dictionary<int, string> FileIds = new ();
         
         /// <summary>
-        /// Key for XTEA and AES algorithms
+        /// Key for XTEA algorithm
         /// </summary>
         private byte[] _key;
 
@@ -59,10 +59,9 @@ namespace Osz2Decryptor
         /// Need decrypt only metadata?
         /// If false, then it'll decrypt files too.
         /// </summary>
-        private bool _metadataOnly;
+        private readonly bool _metadataOnly;
         
         /// <summary>
-        /// Constructor to initialize Osz2Package
         /// </summary>
         /// <param name="path">Path to osz2 file</param>
         public Osz2Package(string path, bool metadataOnly = false)
@@ -73,11 +72,21 @@ namespace Osz2Decryptor
         }
 
         /// <summary>
+        /// </summary>
+        /// <param name="path">Path to osz2 file</param>
+        public Osz2Package(Stream stream, bool metadataOnly = false)
+        {
+            _metadataOnly = metadataOnly;
+
+            Read(stream);
+        }
+
+        /// <summary>
         /// Reads the metadata of .osu files that osz2 contains
         /// </summary>
-        private void Read(Stream file)
+        private void Read(Stream stream)
         {
-            var reader = new BinaryReader(file);
+            var reader = new BinaryReader(stream);
 
             // identifier aka magic number
             // we use this to check if file
@@ -268,28 +277,6 @@ namespace Osz2Decryptor
 
             hash[5] ^= 0x2d;
             return hash;
-        }
-        
-        /// <summary>
-        /// Checks if given filename is video file
-        /// </summary>
-        /// <param name="name">Path to file or file name</param>
-        /// <returns>True if file is Video and False if not</returns>
-        private static bool IsVideo(string name)
-        {
-            var extension = Path.GetExtension(name);
-            switch (extension)
-            {
-                case ".avi":
-                case ".flv":
-                case ".mpg":
-                case ".wmv":
-                case ".m4v":
-                case ".mp4":
-                    return true;
-                default:
-                    return false;
-            }
         }
     }
 }
